@@ -15,7 +15,8 @@
     fileExistsPromised,
     mkdirpPromised,
     getRelativeUrl,
-    downloadFilePromised
+    downloadFilePromised,
+    canFetchAccordingToRobotsTxt
   } = require(`./utils`);
 
   const webviewEl = document.getElementById(`webview`);
@@ -55,8 +56,15 @@
       rootUrl = urlsToLoad[0];
       parsedRootUrl = url.parse(rootUrl);
       downloadFolder = path.resolve(app.getPath(`desktop`), `${parsedRootUrl.host}-${Date.now()}`);
-      loadNextBreakpoint();
       setFormEnabled(false);
+      canFetchAccordingToRobotsTxt(rootUrl).then(allowed => {
+        if(!allowed) {
+          alert(`Parsing not allowed by robots.txt`);
+          setFormEnabled(true);
+          return;
+        }
+        loadNextBreakpoint();
+      });
     });
   };
 

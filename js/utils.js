@@ -121,6 +121,24 @@ const downloadFilePromised = (fileUrl, filePath) => {
   });
 };
 
+const canFetchAccordingToRobotsTxt = urlWeWantToFetch => {
+  return new Promise(resolve => {
+    const robots = require(`robots`),
+      parser = new robots.RobotsParser(),
+      url = require(`url`),
+      urlParsed = url.parse(urlWeWantToFetch);
+    parser.setUrl(`${urlParsed.protocol}//${urlParsed.host}/robots.txt`, (parser, success) => {
+      if(!success) {
+        return resolve(true);
+      }
+      parser.canFetch(`*`, urlParsed.path, access => {
+        console.log(urlParsed.path, access);
+        resolve(access);
+      });
+    });
+  });
+};
+
 module.exports = {
   htmlEscape,
   needsJSONConversion,
@@ -132,5 +150,6 @@ module.exports = {
   getPathWithoutProtocol,
   getPathWithoutQueryString,
   getRelativeUrl,
-  downloadFilePromised
+  downloadFilePromised,
+  canFetchAccordingToRobotsTxt
 };
