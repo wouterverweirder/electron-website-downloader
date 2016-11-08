@@ -1,4 +1,5 @@
 node_modules/
+dist/
 
 # Windows image file caches
 node_modules
