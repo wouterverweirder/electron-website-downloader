@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Electron Website Downloader</title>
+    <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    .main-wrapper {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 1em;
+      padding-top: 0;
+    }
+    .main-wrapper:first-child {
+      padding-top: 1em;;
+    }
+    .form-wrapper {
+    }
+    .webview-wrapper {
+      flex: 1;
+    }
+    .console-wrapper {
+      height: 10em;
+      overflow: auto;
+    }
+    .input-form {
+      display: flex;
+    }
+    .input, .button {
+      border: solid 1px;
+      padding: 0.5em;
+      border-radius: 0.5em;
+    }
+    .button {
+      cursor: pointer;
+    }
+    .address-input {
+      width: 100%;
+    }
+    .scrape-button {
+      width: 15em;
+      margin-left: 1em;
+    }
+    .console {
+      font-family: monospace;
+    }
+    .console pre {
+      white-space: pre-wrap;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="main-wrapper form-wrapper">
+      <form class="input-form">
+        <input type="text" name="address" class="input address-input" />
+        <button type="submit" class="button scrape-button">Start Scraping</button>
+      </form>
+    </div>
+    <div class="main-wrapper webview-wrapper">
+      <webview id="webview" style="width: 100%; height: 100%"></webview>
+    </div>
+    <div class="main-wrapper console-wrapper">
+      <div class="console"></div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
